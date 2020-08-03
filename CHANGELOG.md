@@ -1,3 +1,6 @@
+## [1.0.4] - 08/02/2020
+* Added example
+
 ## [1.0.3] - 08/02/2020
 * Added MainAxisAlignment
 * Added CrossAxisAlignment
