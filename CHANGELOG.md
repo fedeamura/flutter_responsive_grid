@@ -1,5 +1,6 @@
 ## [1.0.4] - 08/02/2020
 * Added example
+* Added images
 
 ## [1.0.3] - 08/02/2020
 * Added MainAxisAlignment

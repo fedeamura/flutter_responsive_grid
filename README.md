@@ -2,6 +2,9 @@
 
 Responsive grid for Flutter
 
+![pic1](https://i.imgur.com/YWQ9cy9.png)
+![pic2](https://i.imgur.com/2jVwdYY.png)
+
 ## Getting Started
 
 Add ResponsiveGridItem inside a ResponsiveGrid

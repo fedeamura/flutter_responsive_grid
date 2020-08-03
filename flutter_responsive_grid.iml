@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/example/responsive_grid_example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/example/responsive_grid_example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/example/responsive_grid_example/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
