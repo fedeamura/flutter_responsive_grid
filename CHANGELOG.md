@@ -1,3 +1,8 @@
+## [1.0.3] - 08/02/2020
+* Added MainAxisAlignment
+* Added CrossAxisAlignment
+* Added IntrinsicHeight to rows
+
 ## [1.0.2] - 08/02/2020
 * the file index.dart was renamed to flutter_responsive_grid.
 

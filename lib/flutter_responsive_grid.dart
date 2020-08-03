@@ -4,15 +4,17 @@ class ResponsiveGrid extends StatelessWidget {
   final double runSpacing;
   final double spacing;
   final List<ResponsiveGridItem> children;
-  final double itemHeight;
   final int colCount;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   ResponsiveGrid({
     this.children,
-    this.runSpacing,
-    this.spacing,
-    this.itemHeight,
+    this.runSpacing = 0.0,
+    this.spacing = 0.0,
     this.colCount = 12,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+      this.crossAxisAlignment = CrossAxisAlignment.stretch,
   });
 
   List<List<ResponsiveGridItem>> _processItems(BuildContext context, BoxConstraints constraints) {
@@ -21,7 +23,7 @@ class ResponsiveGrid extends StatelessWidget {
     List<ResponsiveGridItem> row = [];
     int count = 0;
     children.forEach((element) {
-      int elementCol = element.cols(screenWidth, colCount: colCount);
+      var elementCol = element.cols(screenWidth: screenWidth, colCount: colCount);
 
       if (count + elementCol > colCount) {
         rows.add(List.from(row));
@@ -49,32 +51,39 @@ class ResponsiveGrid extends StatelessWidget {
           var items = _processItems(context, constraints);
           double screenWidth = constraints.maxWidth;
 
-          return Column(
+          return Wrap(
+            runSpacing: runSpacing,
             children: <Widget>[
-              ...items.asMap().entries.map((rowEntry) {
-                var row = rowEntry.value;
-                var rowIndex = rowEntry.key;
-                var isLastRow = rowIndex == items.length - 1;
-
+              ...items.map((row) {
                 return Container(
-                  margin: EdgeInsets.only(bottom: isLastRow ? 0.0 : (runSpacing ?? 0.0)),
-                  child: Row(
-                    children: <Widget>[
-                      ...row.asMap().entries.map((itemEntry) {
-                        var item = itemEntry.value;
-                        var itemIndex = itemEntry.key;
-                        var isLastRowItem = itemIndex == row.length - 1;
+                  width: double.infinity,
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: mainAxisAlignment,
+                      crossAxisAlignment: crossAxisAlignment,
+                      children: <Widget>[
+                        ...row.asMap().entries.map((itemEntry) {
+                          var item = itemEntry.value;
+                          var itemIndex = itemEntry.key;
+                          var isLastRowItem = itemIndex == row.length - 1;
+                          var shouldAddMargin = !isLastRowItem;
+                          var itemCol = item.cols(screenWidth: screenWidth, colCount: colCount);
+                          var availableSpace = screenWidth - (row.length - 1) * (spacing ?? 0.0);
+                          var itemWidth = availableSpace / (colCount / itemCol);
 
-                        double availableSpace = screenWidth - (row.length - 1) * (spacing ?? 0.0);
-                        int itemCol = item.cols(screenWidth);
-                        double itemWith = availableSpace / (12 / itemCol);
-                        return Container(
-                          margin: EdgeInsets.only(right: isLastRowItem ? 0.0 : (spacing ?? 0.0)),
-                          width: itemWith,
-                          child: item.child,
-                        );
-                      }).toList(),
-                    ],
+                          return Container(
+                            width: itemWidth,
+                            margin: EdgeInsets.only(right: shouldAddMargin ? (spacing ?? 0.0) : 0.0),
+                            constraints: BoxConstraints(
+                              minWidth: itemWidth,
+                              maxWidth: itemWidth,
+                            ),
+                            child: item.child,
+                          );
+                        }).toList(),
+                      ],
+                    ),
                   ),
                 );
               }).toList(),
@@ -85,7 +94,6 @@ class ResponsiveGrid extends StatelessWidget {
     );
   }
 }
-
 
 class ResponsiveGridItem {
   final int xs;
@@ -104,7 +112,7 @@ class ResponsiveGridItem {
     this.child,
   });
 
-  int cols(double screenWidth, {int colCount = 12}) {
+  int cols({@required double screenWidth, @required int colCount}) {
     //XS
     if (screenWidth < 576) {
       return xs ?? colCount;
