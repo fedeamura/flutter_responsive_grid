@@ -1,3 +1,6 @@
+## [1.0.5] - 08/03/2020
+* Add option for use or not the IntrinsicHeight
+
 ## [1.0.4] - 08/02/2020
 * Added example
 * Added images

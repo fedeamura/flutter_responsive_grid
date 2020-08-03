@@ -2,7 +2,7 @@ name: flutter_responsive_grid
 description: A responsive grid layout for Flutter. With ResponsiveGrid and ResponsiveGridItem you can get the same behavior of Boostrap Grid System
 homepage: https://github.com/fedeamura/flutter_responsive_grid
 
-version: 1.0.4
+version: 1.0.5
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

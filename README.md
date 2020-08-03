@@ -91,8 +91,9 @@ ResponsiveGrid
 | runSpacing | double | Space betwen each row | no | 0.0 |
 | spacing | double | Space betwen each col | no | 0.0 |
 | runSpacing | double | Space betwen each row | no | 0.0 |
+| useIntrinsicHeight | bool | Each row use intrinsict height or not | no | true |
 | mainAxisAlignment | MainAxisAlignment | Main axis alignment | no | MainAxisAlignment.center |
-| crossAxisAlignment | CrossAxisAlignment | Cross axis alignment | no | CrossAxisAlignment.stretch |
+| crossAxisAlignment | CrossAxisAlignment | Cross axis alignment | no | if 'useIntrinsicHeight' is true the default value is CrossAxisAlignment.stretch, else is CrossAxisAlignment.start  |
 
 ResponsiveGridItem
 

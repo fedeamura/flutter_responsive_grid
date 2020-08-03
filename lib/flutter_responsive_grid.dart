@@ -7,14 +7,16 @@ class ResponsiveGrid extends StatelessWidget {
   final int colCount;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool useIntrinsicHeight;
 
   ResponsiveGrid({
     this.children,
     this.runSpacing = 0.0,
     this.spacing = 0.0,
     this.colCount = 12,
-    this.mainAxisAlignment = MainAxisAlignment.center,
-      this.crossAxisAlignment = CrossAxisAlignment.stretch,
+    this.useIntrinsicHeight = true,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
   });
 
   List<List<ResponsiveGridItem>> _processItems(BuildContext context, BoxConstraints constraints) {
@@ -42,6 +44,27 @@ class ResponsiveGrid extends StatelessWidget {
     return rows;
   }
 
+  Widget _container({Widget child}) {
+    if (useIntrinsicHeight) {
+      return IntrinsicHeight(
+        child: child,
+      );
+    }
+
+    return child;
+  }
+
+  MainAxisAlignment get _computedMainAxisAlignment {
+    if (mainAxisAlignment != null) return mainAxisAlignment;
+    return MainAxisAlignment.center;
+  }
+
+  CrossAxisAlignment get _computedCrossAxisAlignment {
+    if (crossAxisAlignment != null) return crossAxisAlignment;
+    if (useIntrinsicHeight) return CrossAxisAlignment.stretch;
+    return CrossAxisAlignment.start;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,11 +80,11 @@ class ResponsiveGrid extends StatelessWidget {
               ...items.map((row) {
                 return Container(
                   width: double.infinity,
-                  child: IntrinsicHeight(
+                  child: _container(
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: mainAxisAlignment,
-                      crossAxisAlignment: crossAxisAlignment,
+                      mainAxisAlignment: _computedMainAxisAlignment,
+                      crossAxisAlignment: _computedCrossAxisAlignment,
                       children: <Widget>[
                         ...row.asMap().entries.map((itemEntry) {
                           var item = itemEntry.value;
