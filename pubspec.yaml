@@ -1,0 +1,18 @@
+name: flutter_responsive_grid
+description: Responsive grid for Flutter
+homepage: https://github.com/fedeamura/flutter_responsive_grid
+
+version: 1.0.2
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
